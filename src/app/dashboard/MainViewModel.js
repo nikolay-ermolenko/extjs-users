@@ -11,7 +11,7 @@ Ext.define('App.dashboard.MainViewModel', {
     data: {
         version: Ext.getVersion(),
         devicePixelRatio: window.devicePixelRatio,
-        authorised: true
+        selectedUser: null
     },
 
     stores: {
@@ -19,8 +19,11 @@ Ext.define('App.dashboard.MainViewModel', {
             autoLoad: true,
             pageSize: 0,
             storeId: 'usersStore',
-            model: 'App.models.Users'
-
+            model: 'App.models.Users',
+            sorters: {
+                property: 'fullName',
+                direction: 'ASC'
+            }
         }
     },
 
