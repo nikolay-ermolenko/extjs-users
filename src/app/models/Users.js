@@ -26,14 +26,25 @@ Ext.define('App.models.Users', {
             type: 'integer'
         },
         {
-            name: 'ShortName',
+            name: 'fullName',
             type: 'string',
-            convert: function (v, record) {
+            depends: ['firstName', 'lastName'],
+            persist: false,
+            calculate: function (data) {
+                return (data.firstName + ' ' + data.lastName).trim();
+            }
+        },
+        {
+            name: 'shortName',
+            type: 'string',
+            depends: ['firstName', 'lastName'],
+            persist: false,
+            calculate: function (data) {
                 return Ext.Array.map(
                     Ext.Array.filter(
                         [
-                            (record.get('firstName')[0] || '').toUpperCase(),
-                            (record.get('lastName')[0] || '').toUpperCase()
+                            (data.firstName[0] || '').toUpperCase(),
+                            (data.lastName[0] || '').toUpperCase()
                         ],
                         function (letter) {
                             return Boolean(letter)
@@ -44,6 +55,10 @@ Ext.define('App.models.Users', {
                     }
                 ).join('');
             }
+        },
+        {
+            name: 'email',
+            type: 'string'
         }
     ],
 
@@ -67,7 +82,8 @@ Ext.define('App.models.Users', {
             },
             {
                 type: 'range',
-                min: 0
+                min: 0,
+                message: 'Больше нуля'
             }
         ],
         email: [
