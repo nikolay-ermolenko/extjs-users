@@ -55,7 +55,41 @@ Ext.define('App.dashboard.MainController', {
                             deep: true
                         },
                         get: function (editedUser) {
-                            console.log(234234234, editedUser)
+                            return editedUser.dirty;
+                        }
+                    }
+                }
+            }
+        }).show();
+    },
+
+    addUser: function () {
+        this.getViewModel().set('selectedUser', null);
+        this.getView().add({
+            xtype: 'users-card',
+            modal: true,
+            width: 500,
+            height: 400,
+            renderTo: this.getView().getEl(),
+            title: 'Создание пользователя',
+            viewModel: {
+                formulas: {
+                    editedUser: function (getter) {
+                        return getter('selectedUser')
+                            ? Ext.create(
+                                'App.models.Users',
+                                getter('selectedUser').getData()
+                            )
+                            : Ext.create(
+                                'App.models.Users',
+                                {});
+                    },
+                    isDirty: {
+                        bind: {
+                            bindTo: '{editedUser}',
+                            deep: true
+                        },
+                        get: function (editedUser) {
                             return editedUser.dirty;
                         }
                     }

@@ -40,10 +40,13 @@ Ext.define('App.users.Card', {
                 bind: '{editedUser.email}'
             },
             {
-                xtype: 'hidden',
+                xtype: 'textfield',
+                hidden: true,
+                validator: function (val) {
+                    return val === 'true';
+                },
                 bind: {
-                    value: '{isDirty}',
-                    validation: '{isDirty ? null : !isDirty}'
+                    value: '{isDirty}'
                 }
             }
         ],
@@ -51,9 +54,6 @@ Ext.define('App.users.Card', {
             {
                 text: 'Сохранить',
                 formBind: true,
-                bind: {
-                    disabled: '{!isDirty}'
-                },
                 handler: 'saveForm'
             },
             {

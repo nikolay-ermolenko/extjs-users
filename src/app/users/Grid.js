@@ -12,6 +12,21 @@ Ext.define('App.users.Grid', {
         ptype: 'gridfilters'
     },
 
+    dockedItems: [
+        {
+            xtype: 'toolbar',
+            dock: 'top',
+            items: [
+                {
+                    xtype: 'button',
+                    iconCls: 'fa fa-user-plus',
+                    text: 'Add user',
+                    handler: 'addUser'
+                }
+            ]
+        }
+    ],
+
     columns: [
         {
             xtype: 'rownumberer',
